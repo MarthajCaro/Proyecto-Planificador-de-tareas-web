@@ -1,0 +1,29 @@
+# 📝 Planificador de Tareas web - Sprint 1
+
+Aplicación web para crear, organizar y gestionar tareas, permitiendo llevar un control del avance mediante estados, fechas y prioridades.
+
+## 📋 Tablero de trabajo (Trello)
+
+Avance del proyecto aquí:
+https://trello.com/b/KPm0PPsq/proyecto-planificador-de-tareas-web
+
+## Sprint 1 - Objetivos desarrollados
+
+En este primer sprint se implementó la estructura inicial de la aplicación, incluyendo la interfaz visual, creación de tareas y validaciones del formulario.
+
+## Funcionalidades
+
+- Crear tareas
+- Validar información del formulario
+- Visualizar lista de tareas
+- Clasificar tareas por estado:
+  - Pendiente
+  - En proceso
+  - Completada
+- Registrar fechas de inicio y finalización
+- Asignar prioridad a las tareas
+- Editar y eliminar tareas
+
+
+
+
