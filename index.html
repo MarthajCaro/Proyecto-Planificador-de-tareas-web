@@ -1,109 +1,152 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<title>Planificador</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Planificador de tareas</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-<link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
+  </head>
 
-</head>
+  <body>
+    <div class="container mt-4">
+      <div class="container-box">
+        <div class="top-bar mb-4">
+          <h4>PLANIFICADOR DE TAREAS</h4>
+          <div>
+            <button id="btnFecha" class="btn btn-outline">📅 Hoy</button>
 
-<body>
+            <input type="date" id="calendario" style="display: none" />
+            <button class="btn btn-outline-primary">👤 Perfil</button>
+          </div>
+        </div>
 
-<div class="container mt-4">
-<div class="container-box">
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <div class="stats">
+              <p>TAREAS TOTALES</p>
+              <h3 id="total">0</h3>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stats">
+              <p>EN PROCESO</p>
+              <h3 id="proceso">0</h3>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stats">
+              <p>COMPLETADAS</p>
+              <h3 id="completadas">0</h3>
+            </div>
+          </div>
+        </div>
 
-  
-  <div class="top-bar mb-4">
-    <h4>PLANIFICADOR DE TAREAS</h4>
-    <div>
-      <button id="btnFecha" class="btn btn-outline">
-  📅 Hoy
-</button>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-box">
+              <h5>AGREGAR NUEVA TAREA</h5>
 
-<input type="date" id="calendario" style="display:none;">
-      <button class="btn btn-outline">
-        👤 Perfil
-      </button>
-    </div>
-  </div>
+              <form id="form">
+                <input
+                  type="text"
+                  id="titulo"
+                  class="form-control mb-2"
+                  placeholder="Título"
+                />
 
-  
-  <div class="row mb-4">
-    <div class="col-md-4">
-      <div class="stats">
-        <p>TAREAS TOTALES</p>
-        <h3 id="total">0</h3>
+                <textarea
+                  id="descripcion"
+                  class="form-control mb-2"
+                  placeholder="Descripción"
+                ></textarea>
+
+                <label>Fecha de inicio</label>
+                <input type="date" id="fechaInicio" class="form-control mb-2" />
+                <label>Fecha de finalización</label>
+                <input type="date" id="fechaFin" class="form-control mb-2" />
+
+                <select id="estado" class="form-control mb-2">
+                  <option value="Pendiente">Pendiente</option>
+                  <option value="En proceso">En proceso</option>
+                  <option value="Completada">Completada</option>
+                </select>
+
+                <label>Prioridad</label>
+
+                <select id="prioridad" class="form-control mb-2">
+                  <option value="Alta">Alta</option>
+                  <option value="Media">Media</option>
+                  <option value="Baja">Baja</option>
+                </select>
+
+                <button class="btn btn-outline w-100">+ AGREGAR TAREA</button>
+              </form>
+
+              <div id="error" class="text-danger mt-2"></div>
+            </div>
+          </div>
+
+          <!-- Implementación de tarjetas por tarea -->
+          <div class="col-md-8">
+            <h5>LISTA DE TAREAS</h5>
+            <div id="lista">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Hacer un login</h5>
+                  <p class="card-text">Crear formulario de inicio de sesión con validación de usuario</p>
+                  <p class="card-text"><small>Fecha: 2026-08-05</small></p>
+                  <span class="badge bg-secondary">Pendiente</span>
+                </div>
+              </div>
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Crear formulario de tareas</h5>
+                  <p class="card-text">Diseñar el formulario para agregar nuevas tareas con todos los campos</p>
+                  <p class="card-text"><small>Fecha: 2026-08-05</small></p>
+                  <span class="badge bg-secondary">En proceso</span>
+                </div>
+              </div>
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Conectar base de datos</h5>
+                  <p class="card-text">Integrar el sistema con la base de datos para guardar tareas</p>
+                  <p class="card-text"><small>Fecha: 2026-08-05</small></p>
+                  <span class="badge bg-secondary">Pendiente</span>
+                </div>
+              </div>
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Implementar registro</h5>
+                  <p class="card-text">Permitir a nuevos usuarios crear una cuenta</p>
+                  <p class="card-text"><small>Fecha: 2026-08-05</small></p>
+                  <span class="badge bg-secondary">Pendiente</span>
+                </div>
+              </div>
+
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h5 class="card-title">Mejorar interfaz</h5>
+                  <p class="card-text"> Ajustar estilos y diseño para mejorar experiencia con el usuario</p>
+                  <p class="card-text"><small>Fecha: 2026-08-05</small></p>
+                  <span class="badge bg-secondary">Pendiente</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="stats">
-        <p>EN PROCESO</p>
-        <h3 id="proceso">0</h3>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="stats">
-        <p>COMPLETADAS</p>
-        <h3 id="completadas">0</h3>
-      </div>
-    </div>
-  </div>
 
-  <div class="row">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    
-    
-    <div class="col-md-4">
-      <div class="form-box">
-        <h5>AGREGAR NUEVA TAREA</h5>
-
-        <form id="form">
-          <input type="text" id="titulo" class="form-control mb-2" placeholder="Título">
-
-          <textarea id="descripcion" class="form-control mb-2" placeholder="Descripción"></textarea>
-
-      <label>Fecha de inicio</label>
-      <input type="date" id="fechaInicio" class="form-control mb-2">
-      <label>Fecha de finalización</label>
-      <input type="date" id="fechaFin" class="form-control mb-2">
-
-          <select id="estado" class="form-control mb-2">
-            <option value="Pendiente">Pendiente</option>
-            <option value="En proceso">En proceso</option>
-            <option value="Completada">Completada</option>
-          </select>
-
-          <label>Prioridad</label>
-
-          <select id="prioridad" class="form-control mb-2">
-            <option value="Alta">Alta</option>
-            <option value="Media">Media</option>
-            <option value="Baja">Baja</option>
-          </select>
-
-          <button class="btn btn-outline w-100">+ AGREGAR TAREA</button>
-        </form>
-
-        <div id="error" class="text-danger mt-2"></div>
-      </div>
-    </div>
-
-    
-    <div class="col-md-8">
-      <h5>LISTA DE TAREAS</h5>
-      <div id="lista"></div>
-    </div>
-
-    </div>
-  </div>
-</div>      
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="app.js"></script>
-
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
