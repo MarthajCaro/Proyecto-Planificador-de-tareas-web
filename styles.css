@@ -1,93 +1,118 @@
-
 body {
-  background: #f5efe8;
+  background: #0f0e0d;
   font-family: Arial, sans-serif;
+  color: #f5f1e8;
 }
 
 
 .container-box {
-  background: #fffaf5;
+  background: #16140f;
   border-radius: 18px;
   padding: 25px;
-  box-shadow: 0 5px 20px rgba(90, 60, 40, 0.15);
+  border: 1px solid #2a2620;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
 }
 
+
+/*  BARRA SUPERIOR */
 
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #6b4f8a;
-  padding: 18px;
-  border-radius: 15px;
-  color: white;
+  background: linear-gradient(135deg, #1c1a15, #0f0e0d);
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid #d4af37;
+  color: #d4af37;
 }
 
 .top-bar h4 {
   margin: 0;
   font-weight: bold;
+  letter-spacing: 0.04em;
+  font-size: 1.05rem;
 }
 
 
 .btn-outline {
-  border: 1px solid #e8d8c3;
-  color: white;
+  border: 1px solid #d4af37;
+  color: #d4af37;
   background: transparent;
   padding: 8px 18px;
 }
 
 .btn-outline:hover {
-  background: #d8b4a0;
-  color: #4b2e2e;
+  background: #d4af37;
+  color: #0f0e0d;
 }
 
 
-
+/*  TARJETAS DE ESTADÍSTICAS */
 .stats {
-  background: #f8ede3;
-  border: none;
-  border-radius: 15px;
-  padding: 20px;
+  background: #1c1a15;
+  border: 1px solid #2a2620;
+  border-radius: 12px;
+  padding: 12px;
   text-align: center;
-  box-shadow: 0 3px 10px rgba(107,79,138,0.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
 }
 
 .stats p {
-  color: #6b4f8a;
+  color: #d4af37;
   font-weight: bold;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
+  letter-spacing: 0.03em;
+  font-size: 0.72rem;
 }
 
 .stats h3 {
-  color: #4b2e2e;
+  color: #f5f1e8;
+  font-size: 1.3rem;
+  margin: 0;
 }
 
 
-
+/* FORMULARIO */
 .form-box {
-  background: #f8ede3;
+  background: #1c1a15;
+  border: 1px solid #2a2620;
   border-radius: 15px;
   padding: 20px;
 }
 
 .form-box h5,
 .row h5 {
-  color: #6b4f8a;
+  color: #d4af37;
   font-weight: bold;
+  letter-spacing: 0.03em;
 }
 
+.form-box label {
+  color: #a89f8f;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  display: block;
+}
 
 
 .form-control {
+  background: #0f0e0d;
   border-radius: 10px;
-  border: 1px solid #d8b4a0;
+  border: 1px solid #3a352c;
+  color: #f5f1e8;
+}
+
+.form-control::placeholder {
+  color: #6b6357;
 }
 
 .form-control:focus {
-  border-color: #6b4f8a;
-  box-shadow: 0 0 5px rgba(107,79,138,0.3);
+  background: #0f0e0d;
+  color: #f5f1e8;
+  border-color: #d4af37;
+  box-shadow: 0 0 6px rgba(212, 175, 55, 0.35);
 }
-
 
 
 button {
@@ -95,119 +120,168 @@ button {
 }
 
 .form-box button {
-  background: #6b4f8a;
-  color: white;
+  background: #d4af37;
+  color: #0f0e0d;
   border: none;
+  font-weight: bold;
 }
 
 .form-box button:hover {
-  background: var(--primary-light);
+  background: #e9c766;
 }
 
 
+/* LISTA DE TAREAS */
+#lista {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 767px) {
+  #lista {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* TARJETA DE TAREA - más compacta que antes */
 .task-card {
-  background: white;
-  border-radius: 15px;
-  padding: 15px;
-  margin-bottom: 12px;
+  background: #1c1a15;
+  border: 1px solid #2a2620;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+/* elevación al pasar el mouse: le da profundidad y sensación "premium" */
+.task-card:hover {
+  transform: translateY(-3px);
+  border-color: #d4af37;
+  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.15);
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.task-card-title {
+  color: #f5f1e8;
+  font-weight: bold;
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.25;
+}
+
+.task-card-desc {
+  color: #a89f8f;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+  line-height: 1.35;
+
+  /* recorta la descripción a 2 líneas con "..." si es más larga,
+     para que todas las tarjetas mantengan la misma altura */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.task-card-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 3px 12px rgba(75,46,46,0.12);
+}
+
+.task-card-fecha {
+  color: #6b6357;
+  font-size: 0.75rem;
 }
 
 
-.task-card strong {
-  color: #a25c5cd9;
-}
-
-.task-card small {
-  color: #777;
-}
-
-
-
+/*  ETIQUETAS DE ESTADO */
 .estado {
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 20px;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-
-.estado {
-  padding: 8px 15px;
-  border-radius: 20px;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: bold;
   display: inline-block;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-
-
 .pendiente {
-  background-color: #ffd6d6;
-  color: #c0392b;
+  background-color: rgba(231, 76, 60, 0.15);
+  color: #ff6b5b;
   border: 1px solid #e74c3c;
 }
 
-
 .proceso {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #f1c40f;
+  background-color: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  border: 1px solid #d4af37;
 }
 
-
-
 .completada {
-  background-color: #d4edda;
-  color: #155724;
+  background-color: rgba(46, 204, 113, 0.15);
+  color: #4ade80;
   border: 1px solid #28a745;
 }
 
 
+/*    ETIQUETAS DE PRIORIDAD   */
+.prioridad {
+  padding: 3px 9px;
+  border-radius: 15px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.alta {
+  background: rgba(231, 76, 60, 0.15);
+  color: #ff6b5b;
+}
+
+.media {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+}
+
+.baja {
+  background: rgba(46, 204, 113, 0.15);
+  color: #4ade80;
+}
+
+
+/* OTROS BOTONES = */
 .btn-danger {
-  background: #b56576;
+  background: #b5455a;
   border: none;
 }
 
 .btn-danger:hover {
-  background: #8d3f50;
-}
-#calendario {
-  border-radius: 10px;
-  padding: 8px;
-}
-.prioridad {
-  padding: 5px 10px;
-  border-radius: 15px;
-  font-size: 12px;
-  font-weight: bold;
+  background: #8d2f40;
 }
 
-
-.alta {
-  background: #ffd6d6;
-  color: #c0392b;
-}
-
-
-.media {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.baja {
-  background: #d4edda;
-  color: #155724;
-}
 .btn-warning {
-  background: #d8b4a0;
+  background: #d4af37;
   border: none;
-  color: #4b2e2e;
+  color: #0f0e0d;
 }
 
 .btn-warning:hover {
-  background: #c89b7b;
+  background: #e9c766;
+}
+
+#calendario {
+  border-radius: 10px;
+  padding: 8px;
+  background: #1c1a15;
+  color: #f5f1e8;
+  border: 1px solid #3a352c;
 }
