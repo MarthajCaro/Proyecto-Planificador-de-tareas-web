@@ -19,7 +19,6 @@
           <h4>PLANIFICADOR DE TAREAS</h4>
           <div>
             <button id="btnFecha" class="btn btn-outline">📅 Hoy</button>
-
             <input type="date" id="calendario" style="display: none" />
             <button class="btn btn-outline-primary">👤 Perfil</button>
           </div>
@@ -29,19 +28,19 @@
           <div class="col-md-4">
             <div class="stats">
               <p>TAREAS TOTALES</p>
-              <h3 id="total">5</h3>
+              <h3 id="total">0</h3>
             </div>
           </div>
           <div class="col-md-4">
             <div class="stats">
               <p>EN PROCESO</p>
-              <h3 id="proceso">1</h3>
+              <h3 id="proceso">0</h3>
             </div>
           </div>
           <div class="col-md-4">
             <div class="stats">
               <p>COMPLETADAS</p>
-              <h3 id="completadas">1</h3>
+              <h3 id="completadas">0</h3>
             </div>
           </div>
         </div>
@@ -65,9 +64,9 @@
                   placeholder="Descripción"
                 ></textarea>
 
-                <label>Fecha de inicio</label>
+                <label>📅 Fecha de inicio</label>
                 <input type="date" id="fechaInicio" class="form-control mb-2" />
-                <label>Fecha de finalización</label>
+                <label>🏁 Fecha de finalización</label>
                 <input type="date" id="fechaFin" class="form-control mb-2" />
 
                 <select id="estado" class="form-control mb-2">
@@ -91,88 +90,13 @@
             </div>
           </div>
 
-          <!-- Implementación de tarjetas por tarea -->
-          <div class="col-md-8">
-            <h5>LISTA DE TAREAS</h5>
-            <div id="lista">
-              <!-- Tarjeta 1 -->
-              <div class="task-card">
-                <div class="task-card-header">
-                  <h5 class="task-card-title">Hacer un login</h5>
-                  <span class="estado pendiente">Pendiente</span>
-                </div>
-                <p class="task-card-desc">
-                  Crear formulario de inicio de sesión con validación de usuario
-                </p>
-                <div class="task-card-footer">
-                  <small class="task-card-fecha">📅 2026-08-05</small>
-                  <span class="prioridad alta">Alta</span>
-                </div>
-              </div>
-
-              <!-- Tarjeta 2 -->
-              <div class="task-card">
-                <div class="task-card-header">
-                  <h5 class="task-card-title">Crear formulario de tareas</h5>
-                  <span class="estado proceso">En proceso</span>
-                </div>
-                <p class="task-card-desc">
-                  Diseñar el formulario para agregar nuevas tareas con todos los
-                  campos
-                </p>
-                <div class="task-card-footer">
-                  <small class="task-card-fecha">📅 2026-08-06</small>
-                  <span class="prioridad media">Media</span>
-                </div>
-              </div>
-
-              <!-- Tarjeta 3 -->
-              <div class="task-card">
-                <div class="task-card-header">
-                  <h5 class="task-card-title">Conectar base de datos</h5>
-                  <span class="estado pendiente">Pendiente</span>
-                </div>
-                <p class="task-card-desc">
-                  Integrar el sistema con la base de datos para guardar tareas
-                </p>
-                <div class="task-card-footer">
-                  <small class="task-card-fecha">📅 2026-08-07</small>
-                  <span class="prioridad alta">Alta</span>
-                </div>
-              </div>
-
-              <!-- Tarjeta 4 -->
-              <div class="task-card">
-                <div class="task-card-header">
-                  <h5 class="task-card-title">Implementar registro</h5>
-                  <span class="estado completada">Completada</span>
-                </div>
-                <p class="task-card-desc">
-                  Permitir a nuevos usuarios crear una cuenta
-                </p>
-                <div class="task-card-footer">
-                  <small class="task-card-fecha">📅 2026-08-04</small>
-                  <span class="prioridad baja">Baja</span>
-                </div>
-              </div>
-
-              <!-- Tarjeta 5 -->
-              <div class="task-card">
-                <div class="task-card-header">
-                  <h5 class="task-card-title">Mejorar interfaz</h5>
-                  <span class="estado pendiente">Pendiente</span>
-                </div>
-                <p class="task-card-desc">
-                  Ajustar estilos y diseño para mejorar experiencia con el
-                  usuario
-                </p>
-                <div class="task-card-footer">
-                  <small class="task-card-fecha">📅 2026-08-08</small>
-                  <span class="prioridad media">Media</span>
-                </div>
-              </div>
+          
+            <div class="col-md-8">
+              <h5>LISTA DE TAREAS</h5>
+              <div id="lista"></div>
             </div>
-          </div>
+            
+            </div>
         </div>
       </div>
     </div>

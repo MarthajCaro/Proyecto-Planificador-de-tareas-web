@@ -1,12 +1,26 @@
 const btnFecha = document.getElementById("btnFecha");
 const calendario = document.getElementById("calendario");
+const hoy = new Date();
+
+const fechaHoy =
+  hoy.getFullYear() +
+  "-" +
+  String(hoy.getMonth() + 1).padStart(2, "0") +
+  "-" +
+  String(hoy.getDate()).padStart(2, "0");
+
+calendario.value = fechaHoy;
+btnFecha.textContent = "📅 " + fechaHoy;
 const error = document.getElementById("error");
 
 const total = document.getElementById("total");
 const proceso = document.getElementById("proceso");
 const completadas = document.getElementById("completadas");
 
-let tareas = [];
+const form = document.getElementById("form");
+const lista = document.getElementById("lista");
+
+let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
 let tareaEditando = null;
 
 form.addEventListener("submit", (e) => {
@@ -18,11 +32,18 @@ form.addEventListener("submit", (e) => {
   const prioridad = document.getElementById("prioridad").value;
   const fechaInicio = document.getElementById("fechaInicio").value;
   const fechaFin = document.getElementById("fechaFin").value;
+  if (fechaFin < fechaInicio) {
+    error.style.color = "red";
+    error.textContent = "La fecha de finalización no puede ser anterior a la fecha de inicio.";
+    console.error("Error: la fecha de finalización es anterior a la fecha de inicio.");
+    return;
+}
 
   //  error
   if (!titulo || !descripcion || !fechaInicio || !fechaFin) {
     error.style.color = "red";
     error.textContent = "Completa todos los campos";
+    console.error("Error: hay campos obligatorios vacíos.");
     return;
   }
 
@@ -34,7 +55,7 @@ form.addEventListener("submit", (e) => {
   }
 
   // tarea guardada
-  error.style.color = "green";
+  error.style.color = "#4ade80";
   error.textContent = "Tarea agregada correctamente";
 
   const tarea = {
@@ -46,6 +67,10 @@ form.addEventListener("submit", (e) => {
     fechaFin,
   };
   tareas.push(tarea);
+  localStorage.setItem("tareas", JSON.stringify(tareas));
+
+  console.log("Tarea creada:", tarea);
+  console.log("Lista de tareas:", tareas);
 
   render();
   form.reset();
@@ -72,30 +97,37 @@ function render() {
     div.className = "task-card";
 
     div.innerHTML = `
-  <div>
-    <strong>${t.titulo}</strong><br>
+    <div class="task-card-header">
+        <h5 class="task-card-title">${t.titulo}</h5>
 
-    <small>${t.descripcion}</small><br>
+        <span class="estado ${claseEstado}">
+            ${t.estado}
+        </span>
+    </div>
 
-    <small>
-      📅 Inicio: ${t.fechaInicio}<br>
-      🏁 Fin: ${t.fechaFin}<br>
-      ⭐ Prioridad: ${t.prioridad}
-    </small>
+    <p class="task-card-desc">
+        ${t.descripcion}
+    </p>
 
-  </div>
+    <div class="task-card-footer">
+        <small class="task-card-fecha">
+            📅 ${t.fechaInicio} → ${t.fechaFin}
+        </small>
 
-  <div>
-    <span class="estado ${claseEstado}">
-      ${t.estado}
-    </span>
-    <button onclick="editar(${i})" class="btn btn-sm btn-warning">
-    ✏️
-    </button>
-    <button onclick="eliminar(${i})" class="btn btn-sm btn-danger">
-      🗑
-    </button>
-  </div>
+        <span class="prioridad ${t.prioridad.toLowerCase()}">
+            ${t.prioridad}
+        </span>
+    </div>
+
+    <div class="mt-2">
+        <button onclick="editar(${i})" class="btn btn-sm btn-warning">
+            ✏️
+        </button>
+
+        <button onclick="eliminar(${i})" class="btn btn-sm btn-danger">
+            🗑
+        </button>
+    </div>
 `;
 
     lista.appendChild(div);
@@ -107,8 +139,11 @@ function render() {
 }
 
 function eliminar(i) {
-  tareas.splice(i, 1);
-  render();
+    tareas.splice(i, 1);
+
+    localStorage.setItem("tareas", JSON.stringify(tareas));
+
+    render();
 }
 
 btnFecha.addEventListener("click", () => {
@@ -135,3 +170,5 @@ function editar(i) {
 
   render();
 }
+
+render();
