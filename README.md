@@ -7,6 +7,13 @@ Aplicación web para crear, organizar y gestionar tareas, permitiendo llevar un 
 Avance del proyecto aquí:
 https://trello.com/b/KPm0PPsq/proyecto-planificador-de-tareas-web
 
+## 🌐 Proyecto publicado
+
+Puedes visualizar el proyecto en GitHub Pages:
+
+## Ver Planificador de Tareas Web:
+ https://marthajcaro.github.io/Proyecto-Planificador-de-tareas-web/
+
 ## Sprint 1 - Objetivos desarrollados
 
 En este primer sprint se implementó la estructura inicial de la aplicación, incluyendo la interfaz visual, creación de tareas y validaciones del formulario.
@@ -24,6 +31,11 @@ En este primer sprint se implementó la estructura inicial de la aplicación, in
 - Asignar prioridad a las tareas
 - Editar y eliminar tareas
 
+## Sprint 2 - Interfaz y tarjetas de tareas
 
+Creación de tarjetas estáticas de tareas en HTML, mostrando título, descripción, estado, fecha y prioridad.
 
+## Sprint  - Funcionalidades y validación con JavaScript
+
+Implementación de JavaScript para crear, validar, editar y eliminar tareas, actualizar contadores, mostrar errores y guardar tareas con localStorage.
 
