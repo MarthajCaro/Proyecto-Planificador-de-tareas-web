@@ -2,17 +2,20 @@
 
 Aplicación web para crear, organizar y gestionar tareas, permitiendo llevar un control del avance mediante estados, fechas y prioridades.
 
-## 📋 Tablero de trabajo (Trello)
-
-Avance del proyecto aquí:
-https://trello.com/b/KPm0PPsq/proyecto-planificador-de-tareas-web
-
 ## 🌐 Proyecto publicado
 
 Puedes visualizar el proyecto en GitHub Pages:
 
-## Ver Planificador de Tareas Web:
+## Ver Planificador de Tareas Web - deploy:
  https://marthajcaro.github.io/Proyecto-Planificador-de-tareas-web/
+
+ ## 📋 Tablero de trabajo (Trello)
+
+Avance del proyecto aquí:
+https://trello.com/b/KPm0PPsq/proyecto-planificador-de-tareas-web
+
+## ver figma:
+ https://www.figma.com/design/4PhQIOao2tgP9dHSebTbOu/Sin-t%C3%ADtulo?node-id=0-1&t=y90ASUac0gy2Pk6Y-1
 
 ## Sprint 1 - Objetivos desarrollados
 
