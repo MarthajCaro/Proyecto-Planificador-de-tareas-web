@@ -1,30 +1,29 @@
 body {
-  background: #0f0e0d;
+  background: linear-gradient(135deg, #f5f3ff 0%, #fdf4ff 50%, #fce7f3 100%);
+  background-attachment: fixed;
   font-family: Arial, sans-serif;
-  color: #f5f1e8;
+  color: #1e293b;
 }
-
 
 .container-box {
-  background: #16140f;
+  background: #ffffff;
   border-radius: 18px;
   padding: 25px;
-  border: 1px solid #2a2620;
-  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 5px 20px rgba(30, 41, 59, 0.06);
 }
 
 
-/*  BARRA SUPERIOR */
-
+/* ===== BARRA SUPERIOR ===== */
 .top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #1c1a15, #0f0e0d);
+  background: linear-gradient(135deg, #f5f3ff, #fce7f3);
   padding: 10px 16px;
   border-radius: 12px;
-  border: 1px solid #d4af37;
-  color: #d4af37;
+  border: 1px solid #e9d5ff;
+  color: #86198f;
 }
 
 .top-bar h4 {
@@ -34,32 +33,48 @@ body {
   font-size: 1.05rem;
 }
 
+.top-bar-frase {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #a21caf;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+.top-bar-bienvenida {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #86198f;
+  margin-left: 8px;
+}
 
 .btn-outline {
-  border: 1px solid #d4af37;
-  color: #d4af37;
+  border: 1px solid #a855f7;
+  color: #a855f7;
   background: transparent;
   padding: 8px 18px;
 }
 
 .btn-outline:hover {
-  background: #d4af37;
-  color: #0f0e0d;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: #ffffff;
+  border-color: transparent;
 }
 
 
-/*  TARJETAS DE ESTADÍSTICAS */
+/* ===== TARJETAS DE ESTADÍSTICAS ===== */
 .stats {
-  background: #1c1a15;
-  border: 1px solid #2a2620;
   border-radius: 12px;
   padding: 12px;
   text-align: center;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+  border: 1px solid transparent;
+  box-shadow: 0 3px 10px rgba(30, 41, 59, 0.05);
 }
 
 .stats p {
-  color: #d4af37;
   font-weight: bold;
   margin-bottom: 4px;
   letter-spacing: 0.03em;
@@ -67,29 +82,49 @@ body {
 }
 
 .stats h3 {
-  color: #f5f1e8;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin: 0;
+  font-weight: 800;
 }
 
+.stats-total {
+  background: linear-gradient(160deg, #f5f3ff, #ffffff);
+  border-color: #e9d5ff;
+}
+.stats-total p { color: #a855f7; }
+.stats-total h3 { color: #7e22ce; }
 
-/* FORMULARIO */
+.stats-proceso {
+  background: linear-gradient(160deg, #fdf2f8, #ffffff);
+  border-color: #fbcfe8;
+}
+.stats-proceso p { color: #ec4899; }
+.stats-proceso h3 { color: #be185d; }
+
+.stats-completadas {
+  background: linear-gradient(160deg, #f0fdf4, #ffffff);
+  border-color: #bbf7d0;
+}
+.stats-completadas p { color: #16a34a; }
+.stats-completadas h3 { color: #15803d; }
+
+/* ===== FORMULARIO ===== */
 .form-box {
-  background: #1c1a15;
-  border: 1px solid #2a2620;
+  background: linear-gradient(160deg, #faf5ff, #fdf2f8);
+  border: 1px solid #f3e8ff;
   border-radius: 15px;
   padding: 20px;
 }
 
 .form-box h5,
 .row h5 {
-  color: #d4af37;
+  color: #86198f;
   font-weight: bold;
   letter-spacing: 0.03em;
 }
 
 .form-box label {
-  color: #a89f8f;
+  color: #64748b;
   font-size: 0.85rem;
   margin-bottom: 4px;
   display: block;
@@ -97,21 +132,36 @@ body {
 
 
 .form-control {
-  background: #0f0e0d;
+  background: #ffffff;
   border-radius: 10px;
-  border: 1px solid #3a352c;
-  color: #f5f1e8;
+  border: 1px solid #cbd5e1;
+  color: #1e293b;
 }
-
+ 
 .form-control::placeholder {
-  color: #6b6357;
+  color: #94a3b8;
 }
 
 .form-control:focus {
-  background: #0f0e0d;
-  color: #f5f1e8;
-  border-color: #d4af37;
-  box-shadow: 0 0 6px rgba(212, 175, 55, 0.35);
+  background: #ffffff;
+  color: #1e293b;
+  border-color: #a855f7;
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.25);
+}
+
+
+/* Calendario más fácil de abrir: cursor de "mano" en todo el campo */
+input[type="date"] {
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.65;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
 }
 
 
@@ -120,18 +170,18 @@ button {
 }
 
 .form-box button {
-  background: #d4af37;
-  color: #0f0e0d;
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: #ffffff;
   border: none;
   font-weight: bold;
 }
 
 .form-box button:hover {
-  background: #e9c766;
+  background: linear-gradient(135deg, #9333ea, #db2777);
 }
 
 
-/* LISTA DE TAREAS */
+/* ===== LISTA DE TAREAS ===== */
 #lista {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -146,21 +196,20 @@ button {
 }
 
 
-/* TARJETA DE TAREA - más compacta que antes */
+/* ===== TARJETA DE TAREA ===== */
 .task-card {
-  background: #1c1a15;
-  border: 1px solid #2a2620;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
   padding: 12px 14px;
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 3px 12px rgba(30, 41, 59, 0.05);
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-/* elevación al pasar el mouse: le da profundidad y sensación "premium" */
 .task-card:hover {
   transform: translateY(-3px);
-  border-color: #d4af37;
-  box-shadow: 0 8px 22px rgba(212, 175, 55, 0.15);
+  border-color: #e9b8fe;
+  box-shadow: 0 8px 20px rgba(168, 85, 247, 0.14);
 }
 
 .task-card-header {
@@ -172,7 +221,7 @@ button {
 }
 
 .task-card-title {
-  color: #f5f1e8;
+  color: #1e293b;
   font-weight: bold;
   margin: 0;
   font-size: 0.92rem;
@@ -180,13 +229,11 @@ button {
 }
 
 .task-card-desc {
-  color: #a89f8f;
+  color: #64748b;
   margin-bottom: 10px;
   font-size: 0.8rem;
   line-height: 1.35;
 
-  /* recorta la descripción a 2 líneas con "..." si es más larga,
-     para que todas las tarjetas mantengan la misma altura */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -200,12 +247,23 @@ button {
 }
 
 .task-card-fecha {
-  color: #6b6357;
+  color: #94a3b8;
   font-size: 0.75rem;
 }
 
+/* Tarjeta marcada como completada: borde verde + título tachado + opacidad leve */
+.task-card-completada {
+  border-left: 4px solid #22c55e;
+  opacity: 0.85;
+}
 
-/*  ETIQUETAS DE ESTADO */
+.task-card-completada .task-card-title {
+  text-decoration: line-through;
+  color: #64748b;
+}
+
+
+/* ===== ETIQUETAS DE ESTADO ===== */
 .estado {
   padding: 4px 10px;
   border-radius: 20px;
@@ -217,72 +275,70 @@ button {
 }
 
 .pendiente {
-  background-color: rgba(231, 76, 60, 0.15);
-  color: #ff6b5b;
-  border: 1px solid #e74c3c;
+  background-color: #fef3c7;
+  color: #b45309;
+  border: 1px solid #fcd34d;
 }
 
 .proceso {
-  background-color: rgba(212, 175, 55, 0.15);
-  color: #d4af37;
-  border: 1px solid #d4af37;
+  background-color: #f3e8ff;
+  color: #7e22ce;
+  border: 1px solid #d8b4fe;
 }
 
 .completada {
-  background-color: rgba(46, 204, 113, 0.15);
-  color: #4ade80;
-  border: 1px solid #28a745;
+  background-color: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
 }
 
 
-/*    ETIQUETAS DE PRIORIDAD   */
-.prioridad {
-  padding: 3px 9px;
-  border-radius: 15px;
-  font-size: 10px;
-  font-weight: bold;
+/* ===== BOTÓN DE MARCAR COMPLETADA (toggle) ===== */
+.btn-marcar {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
 }
 
-.alta {
-  background: rgba(231, 76, 60, 0.15);
-  color: #ff6b5b;
+.btn-marcar:hover {
+  background: #e2e8f0;
 }
 
-.media {
-  background: rgba(212, 175, 55, 0.15);
-  color: #d4af37;
+.btn-completada {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #86efac;
 }
 
-.baja {
-  background: rgba(46, 204, 113, 0.15);
-  color: #4ade80;
+.btn-completada:hover {
+  background: #bbf7d0;
 }
 
 
-/* OTROS BOTONES = */
+/* ===== OTROS BOTONES ===== */
 .btn-danger {
-  background: #b5455a;
+  background: #ef4444;
   border: none;
 }
 
 .btn-danger:hover {
-  background: #8d2f40;
+  background: #dc2626;
 }
 
 .btn-warning {
-  background: #d4af37;
+  background: #fbbf24;
   border: none;
-  color: #0f0e0d;
+  color: #1e293b;
 }
 
 .btn-warning:hover {
-  background: #e9c766;
+  background: #f59e0b;
 }
 
 #calendario {
   border-radius: 10px;
   padding: 8px;
-  background: #1c1a15;
-  color: #f5f1e8;
-  border: 1px solid #3a352c;
+  background: #ffffff;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
 }

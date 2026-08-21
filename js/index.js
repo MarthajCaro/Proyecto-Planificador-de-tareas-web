@@ -1,3 +1,7 @@
+const taskManager = new TaskManager();
+
+console.log(taskManager.tasks);
+
 const btnFecha = document.getElementById("btnFecha");
 const calendario = document.getElementById("calendario");
 const hoy = new Date();
@@ -11,6 +15,7 @@ const fechaHoy =
 
 calendario.value = fechaHoy;
 btnFecha.textContent = "📅 " + fechaHoy;
+
 const error = document.getElementById("error");
 
 const total = document.getElementById("total");
@@ -20,8 +25,10 @@ const completadas = document.getElementById("completadas");
 const form = document.getElementById("form");
 const lista = document.getElementById("lista");
 
+const fechaInicioInput = document.getElementById("fechaInicio");
+const fechaFinInput = document.getElementById("fechaFin");
+
 let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
-let tareaEditando = null;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -29,40 +36,39 @@ form.addEventListener("submit", (e) => {
   const titulo = document.getElementById("titulo").value.trim();
   const descripcion = document.getElementById("descripcion").value.trim();
   const estado = document.getElementById("estado").value;
-  const prioridad = document.getElementById("prioridad").value;
-  const fechaInicio = document.getElementById("fechaInicio").value;
-  const fechaFin = document.getElementById("fechaFin").value;
-  if (fechaFin < fechaInicio) {
-    error.style.color = "red";
-    error.textContent = "La fecha de finalización no puede ser anterior a la fecha de inicio.";
-    console.error("Error: la fecha de finalización es anterior a la fecha de inicio.");
-    return;
-}
+  const fechaInicio = fechaInicioInput.value;
+  const fechaFin = fechaFinInput.value;
 
-  //  error
+  if (fechaFin < fechaInicio) {
+    error.style.color = "#dc2626";
+    error.textContent =
+      "La fecha de finalización no puede ser anterior a la fecha de inicio.";
+    console.error(
+      "Error: la fecha de finalización es anterior a la fecha de inicio.",
+    );
+    return;
+  }
+
   if (!titulo || !descripcion || !fechaInicio || !fechaFin) {
-    error.style.color = "red";
+    error.style.color = "#dc2626";
     error.textContent = "Completa todos los campos";
     console.error("Error: hay campos obligatorios vacíos.");
     return;
   }
 
-  // advertencia
   if (titulo.length < 3) {
-    error.style.color = "orange";
+    error.style.color = "#d97706";
     error.textContent = "El título es muy corto";
     return;
   }
 
-  // tarea guardada
-  error.style.color = "#4ade80";
+  error.style.color = "#16a34a";
   error.textContent = "Tarea agregada correctamente";
 
   const tarea = {
     titulo,
     descripcion,
     estado,
-    prioridad,
     fechaInicio,
     fechaFin,
   };
@@ -83,47 +89,47 @@ function render() {
   let completadasCount = 0;
 
   tareas.forEach((t, i) => {
-    // contador
     if (t.estado === "En proceso") enProceso++;
     if (t.estado === "Completada") completadasCount++;
 
-    // clase dinámica
     let claseEstado = "";
     if (t.estado === "Pendiente") claseEstado = "pendiente";
     if (t.estado === "En proceso") claseEstado = "proceso";
     if (t.estado === "Completada") claseEstado = "completada";
 
+    const estaCompletada = t.estado === "Completada";
+
     const div = document.createElement("div");
-    div.className = "task-card";
+    div.className = `task-card ${estaCompletada ? "task-card-completada" : ""}`;
 
     div.innerHTML = `
     <div class="task-card-header">
         <h5 class="task-card-title">${t.titulo}</h5>
-
+ 
         <span class="estado ${claseEstado}">
             ${t.estado}
         </span>
     </div>
-
+ 
     <p class="task-card-desc">
         ${t.descripcion}
     </p>
-
+ 
     <div class="task-card-footer">
         <small class="task-card-fecha">
             📅 ${t.fechaInicio} → ${t.fechaFin}
         </small>
-
-        <span class="prioridad ${t.prioridad.toLowerCase()}">
-            ${t.prioridad}
-        </span>
     </div>
-
-    <div class="mt-2">
+ 
+    <div class="mt-2 d-flex gap-2">
+        <button onclick="toggleCompletada(${i})" class="btn btn-sm ${estaCompletada ? "btn-completada" : "btn-marcar"}">
+            ${estaCompletada ? "✅ Completada" : "⬜ Marcar completada"}
+        </button>
+ 
         <button onclick="editar(${i})" class="btn btn-sm btn-warning">
             ✏️
         </button>
-
+ 
         <button onclick="eliminar(${i})" class="btn btn-sm btn-danger">
             🗑
         </button>
@@ -138,12 +144,22 @@ function render() {
   completadas.textContent = completadasCount;
 }
 
+// Interruptor: cada clic alterna entre "Completada" y "Pendiente"
+function toggleCompletada(i) {
+  tareas[i].estado =
+    tareas[i].estado === "Completada" ? "Pendiente" : "Completada";
+
+  localStorage.setItem("tareas", JSON.stringify(tareas));
+
+  render();
+}
+
 function eliminar(i) {
-    tareas.splice(i, 1);
+  tareas.splice(i, 1);
 
-    localStorage.setItem("tareas", JSON.stringify(tareas));
+  localStorage.setItem("tareas", JSON.stringify(tareas));
 
-    render();
+  render();
 }
 
 btnFecha.addEventListener("click", () => {
@@ -156,17 +172,27 @@ calendario.addEventListener("change", () => {
   btnFecha.textContent = "📅 " + fecha;
 });
 
+// Hace que el calendario se abra al hacer clic
+
+[fechaInicioInput, fechaFinInput].forEach((input) => {
+  input.addEventListener("click", () => {
+    if (input.showPicker) {
+      input.showPicker();
+    }
+  });
+});
+
 function editar(i) {
   const tarea = tareas[i];
 
   document.getElementById("titulo").value = tarea.titulo;
   document.getElementById("descripcion").value = tarea.descripcion;
   document.getElementById("estado").value = tarea.estado;
-  document.getElementById("prioridad").value = tarea.prioridad;
-  document.getElementById("fechaInicio").value = tarea.fechaInicio;
-  document.getElementById("fechaFin").value = tarea.fechaFin;
+  fechaInicioInput.value = tarea.fechaInicio;
+  fechaFinInput.value = tarea.fechaFin;
 
   tareas.splice(i, 1);
+  localStorage.setItem("tareas", JSON.stringify(tareas));
 
   render();
 }
