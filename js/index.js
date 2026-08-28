@@ -1,5 +1,13 @@
 const taskManager = new TaskManager();
 
+const newTaskForm = document.querySelector("#newTaskForm");
+
+newTaskForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  // aquí va la lógica para registrar la tarea
+});
+
 console.log(taskManager.tasks);
 
 const btnFecha = document.getElementById("btnFecha");
@@ -198,3 +206,19 @@ function editar(i) {
 }
 
 render();
+
+taskManager.addTask(
+  "Sacar la basura",
+  "Sacar la basura al frente de la casa",
+  "2020-09-20",
+  "PORHACER",
+);
+
+taskManager.addTask(
+  "Hacer de cenar",
+  "Preparar la cena para la familia",
+  "2020-09-20",
+  "PORHACER",
+);
+
+console.log(taskManager.tasks);
