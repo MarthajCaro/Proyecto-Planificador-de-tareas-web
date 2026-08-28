@@ -15,7 +15,9 @@
   <body>
     <div class="container mt-4">
       <div class="container-box">
-        <div class="top-bar mb-3">
+        <div
+          class="top-bar mb-3 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3"
+        >
           <h4>PLANIFICADOR DE TAREAS</h4>
 
           <p class="top-bar-frase">Un pequeño paso cada día suma.</p>
@@ -28,20 +30,20 @@
           </div>
         </div>
 
-        <div class="row mb-3">
-          <div class="col-md-4">
+        <div class="row mb-3 g-3">
+          <div class="col-12 col-md-4">
             <div class="stats stats-total">
               <p>📋 TAREAS TOTALES</p>
               <h3 id="total">0</h3>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <div class="stats stats-proceso">
               <p>⏳ EN PROCESO</p>
               <h3 id="proceso">0</h3>
             </div>
           </div>
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <div class="stats stats-completadas">
               <p>✅ COMPLETADAS</p>
               <h3 id="completadas">0</h3>
@@ -50,7 +52,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-12 col-md-4">
             <div class="form-box">
               <h5>AGREGAR NUEVA TAREA</h5>
 
@@ -87,7 +89,7 @@
             </div>
           </div>
 
-          <div class="col-md-8">
+          <div class="col-12 col-md-8">
             <h5>LISTA DE TAREAS</h5>
             <div id="lista"></div>
           </div>
