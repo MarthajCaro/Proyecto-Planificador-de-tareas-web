@@ -1,18 +1,38 @@
 class TaskManager {
   constructor(currentId = 0) {
     this.tasks = [];
-    this.currentId = currentId; //Guarda ese contador dentro del objeto
+    this.currentId = currentId;
   }
 
-  addTask(name, description, dueDate, status) {
+  addTask(name, description, fechaInicio, fechaFin, status) {
     this.currentId++;
 
-    this.tasks.push({
+    const newTask = {
       id: this.currentId,
       name: name,
       description: description,
-      dueDate: dueDate,
-      status: "PORHACER",
-    });
+      fechaInicio: fechaInicio,
+      fechaFin: fechaFin,
+      status: status,
+    };
+
+    this.tasks.push(newTask);
+  }
+
+  deleteTask(taskId) {
+    const newTasks = [];
+
+    for (let task of this.tasks) {
+      if (task.id !== taskId) {
+        newTasks.push(task);
+      }
+    }
+
+    this.tasks = newTasks;
+  }
+
+  save() {
+    localStorage.setItem("tareas", JSON.stringify(this.tasks));
+    localStorage.setItem("currentId", this.currentId);
   }
 }

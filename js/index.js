@@ -1,25 +1,211 @@
-const taskManager = new TaskManager();
+const currentId = Number(localStorage.getItem("currentId")) || 0;
 
-const newTaskForm = document.querySelector("#newTaskForm");
+const taskManager = new TaskManager(currentId);
 
-newTaskForm.addEventListener("submit", function (event) {
-  event.preventDefault();
-  const name = document.querySelector("#titulo").value;
-  const description = document.querySelector("#descripcion").value;
-  const dueDate = document.querySelector("#fechaFin").value;
-  const status = document.querySelector("#estado").value;
+taskManager.tasks = JSON.parse(localStorage.getItem("tareas")) || [];
 
-  taskManager.addTask(name, description, dueDate, status);
+const newTaskForm = document.getElementById("newTaskForm");
+const lista = document.getElementById("lista");
+const error = document.getElementById("error");
 
-  console.log(taskManager.tasks);
+const total = document.getElementById("total");
+const proceso = document.getElementById("proceso");
+const completadas = document.getElementById("completadas");
 
-  newTaskForm.reset();
-});
-
-console.log(taskManager.tasks);
+const fechaInicioInput = document.getElementById("fechaInicio");
+const fechaFinInput = document.getElementById("fechaFin");
 
 const btnFecha = document.getElementById("btnFecha");
 const calendario = document.getElementById("calendario");
+
+// ========================================
+// CREAR TAREA
+// ========================================
+
+newTaskForm.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const name = document.getElementById("titulo").value.trim();
+  const description = document.getElementById("descripcion").value.trim();
+  const fechaInicio = fechaInicioInput.value;
+  const dueDate = fechaFinInput.value;
+  const status = document.getElementById("estado").value;
+
+  error.className = "text-danger mt-2";
+  error.textContent = "";
+
+  // Validar campos
+  if (!name || !description || !fechaInicio || !dueDate) {
+    error.textContent = "Completa todos los campos";
+    return;
+  }
+
+  // Validar título
+  if (name.length < 3) {
+    error.textContent = "El título es muy corto";
+    return;
+  }
+
+  // Validar fechas
+  if (dueDate < fechaInicio) {
+    error.textContent =
+      "La fecha de finalización no puede ser anterior a la fecha de inicio.";
+    return;
+  }
+
+  // Crear tarea
+  taskManager.addTask(name, description, fechaInicio, dueDate, status);
+
+  console.log("Tarea creada:", taskManager.tasks);
+
+  error.className = "text-success mt-2";
+  error.textContent = "Tarea agregada correctamente";
+
+  newTaskForm.reset();
+
+  render();
+});
+
+// ========================================
+// MOSTRAR TAREAS
+// ========================================
+
+function render() {
+  lista.innerHTML = "";
+
+  let enProceso = 0;
+  let completadasCount = 0;
+
+  taskManager.tasks.forEach((tarea, i) => {
+    if (tarea.status === "En proceso") {
+      enProceso++;
+    }
+
+    if (tarea.status === "Completada") {
+      completadasCount++;
+    }
+
+    let claseEstado = "";
+
+    if (tarea.status === "Pendiente") {
+      claseEstado = "pendiente";
+    }
+
+    if (tarea.status === "En proceso") {
+      claseEstado = "proceso";
+    }
+
+    if (tarea.status === "Completada") {
+      claseEstado = "completada";
+    }
+
+    const estaCompletada = tarea.status === "Completada";
+
+    const div = document.createElement("div");
+    div.className = `task-card ${estaCompletada ? "task-card-completada" : ""}`;
+
+    div.dataset.taskId = tarea.id;
+
+    div.innerHTML = `
+      <div class="task-card-header">
+        
+        <h5 class="task-card-title">
+          ${tarea.name}
+        </h5>
+
+        <span class="estado ${claseEstado}">
+          ${tarea.status}
+        </span>
+
+      </div>
+
+      <p class="task-card-desc">
+        ${tarea.description}
+      </p>
+
+      <div class="task-card-footer">
+
+        <small class="task-card-fecha">
+
+        📅 ${tarea.fechaInicio} → ${tarea.fechaFin}
+
+        </small>
+
+      </div>
+
+      
+        <button
+          onclick="toggleCompletada(${i})"
+          class="btn btn-sm ${estaCompletada ? "btn-completada" : "btn-marcar"}"
+        >
+          ${estaCompletada ? "✅ Completada" : "⬜ Marcar completada"}
+        </button>
+
+        <button
+          class="delete-button btn btn-danger btn-sm"
+        >
+          Eliminar
+        </button>
+
+        </div>
+    `;
+
+    lista.appendChild(div);
+  });
+
+  // Actualizar estadísticas
+  total.textContent = taskManager.tasks.length;
+  proceso.textContent = enProceso;
+  completadas.textContent = completadasCount;
+}
+
+// ========================================
+// MARCAR / DESMARCAR COMPLETADA
+// ========================================
+
+function toggleCompletada(i) {
+  if (taskManager.tasks[i].status === "Completada") {
+    taskManager.tasks[i].status = "Pendiente";
+  } else {
+    taskManager.tasks[i].status = "Completada";
+  }
+
+  // Guardar cambio
+  taskManager.saveTasks();
+
+  render();
+}
+
+// ========================================
+// ELIMINAR
+// ========================================
+
+lista.addEventListener("click", (event) => {
+  if (event.target.classList.contains("delete-button")) {
+    const parentTask = event.target.parentElement;
+
+    const taskId = Number(parentTask.dataset.taskId);
+
+    taskManager.deleteTask(taskId);
+
+    taskManager.save();
+
+    render();
+  }
+});
+
+// ========================================
+// BOTÓN HOY
+// ========================================```javascript
+function eliminar(taskId) {
+  taskManager.deleteTask(taskId);
+
+  console.log("Tarea eliminada:", taskId);
+  console.log("Tareas actuales:", taskManager.tasks);
+
+  render();
+}
+
 const hoy = new Date();
 
 const fechaHoy =
@@ -30,165 +216,20 @@ const fechaHoy =
   String(hoy.getDate()).padStart(2, "0");
 
 calendario.value = fechaHoy;
+
 btnFecha.textContent = "📅 " + fechaHoy;
-
-const error = document.getElementById("error");
-
-const total = document.getElementById("total");
-const proceso = document.getElementById("proceso");
-const completadas = document.getElementById("completadas");
-
-const form = document.getElementById("form");
-const lista = document.getElementById("lista");
-
-const fechaInicioInput = document.getElementById("fechaInicio");
-const fechaFinInput = document.getElementById("fechaFin");
-
-let tareas = JSON.parse(localStorage.getItem("tareas")) || [];
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const titulo = document.getElementById("titulo").value.trim();
-  const descripcion = document.getElementById("descripcion").value.trim();
-  const estado = document.getElementById("estado").value;
-  const fechaInicio = fechaInicioInput.value;
-  const fechaFin = fechaFinInput.value;
-
-  if (fechaFin < fechaInicio) {
-    error.style.color = "#dc2626";
-    error.textContent =
-      "La fecha de finalización no puede ser anterior a la fecha de inicio.";
-    console.error(
-      "Error: la fecha de finalización es anterior a la fecha de inicio.",
-    );
-    return;
-  }
-
-  if (!titulo || !descripcion || !fechaInicio || !fechaFin) {
-    error.style.color = "#dc2626";
-    error.textContent = "Completa todos los campos";
-    console.error("Error: hay campos obligatorios vacíos.");
-    return;
-  }
-
-  if (titulo.length < 3) {
-    error.style.color = "#d97706";
-    error.textContent = "El título es muy corto";
-    return;
-  }
-
-  error.style.color = "#16a34a";
-  error.textContent = "Tarea agregada correctamente";
-
-  const tarea = {
-    titulo,
-    descripcion,
-    estado,
-    fechaInicio,
-    fechaFin,
-  };
-  tareas.push(tarea);
-  localStorage.setItem("tareas", JSON.stringify(tareas));
-
-  console.log("Tarea creada:", tarea);
-  console.log("Lista de tareas:", tareas);
-
-  render();
-  form.reset();
-});
-
-function render() {
-  lista.innerHTML = "";
-
-  let enProceso = 0;
-  let completadasCount = 0;
-
-  tareas.forEach((t, i) => {
-    if (t.estado === "En proceso") enProceso++;
-    if (t.estado === "Completada") completadasCount++;
-
-    let claseEstado = "";
-    if (t.estado === "Pendiente") claseEstado = "pendiente";
-    if (t.estado === "En proceso") claseEstado = "proceso";
-    if (t.estado === "Completada") claseEstado = "completada";
-
-    const estaCompletada = t.estado === "Completada";
-
-    const div = document.createElement("div");
-    div.className = `task-card ${estaCompletada ? "task-card-completada" : ""}`;
-
-    div.innerHTML = `
-    <div class="task-card-header">
-        <h5 class="task-card-title">${t.titulo}</h5>
- 
-        <span class="estado ${claseEstado}">
-            ${t.estado}
-        </span>
-    </div>
- 
-    <p class="task-card-desc">
-        ${t.descripcion}
-    </p>
- 
-    <div class="task-card-footer">
-        <small class="task-card-fecha">
-            📅 ${t.fechaInicio} → ${t.fechaFin}
-        </small>
-    </div>
- 
-    <div class="mt-2 d-flex gap-2">
-        <button onclick="toggleCompletada(${i})" class="btn btn-sm ${estaCompletada ? "btn-completada" : "btn-marcar"}">
-            ${estaCompletada ? "✅ Completada" : "⬜ Marcar completada"}
-        </button>
- 
-        <button onclick="editar(${i})" class="btn btn-sm btn-warning">
-            ✏️
-        </button>
- 
-        <button onclick="eliminar(${i})" class="btn btn-sm btn-danger">
-            🗑
-        </button>
-    </div>
-`;
-
-    lista.appendChild(div);
-  });
-
-  total.textContent = tareas.length;
-  proceso.textContent = enProceso;
-  completadas.textContent = completadasCount;
-}
-
-// Interruptor: cada clic alterna entre "Completada" y "Pendiente"
-function toggleCompletada(i) {
-  tareas[i].estado =
-    tareas[i].estado === "Completada" ? "Pendiente" : "Completada";
-
-  localStorage.setItem("tareas", JSON.stringify(tareas));
-
-  render();
-}
-
-function eliminar(i) {
-  tareas.splice(i, 1);
-
-  localStorage.setItem("tareas", JSON.stringify(tareas));
-
-  render();
-}
 
 btnFecha.addEventListener("click", () => {
   calendario.showPicker();
 });
 
 calendario.addEventListener("change", () => {
-  const fecha = calendario.value;
-
-  btnFecha.textContent = "📅 " + fecha;
+  btnFecha.textContent = "📅 " + calendario.value;
 });
 
-// Hace que el calendario se abra al hacer clic
+// ========================================
+// ABRIR CALENDARIOS
+// ========================================
 
 [fechaInicioInput, fechaFinInput].forEach((input) => {
   input.addEventListener("click", () => {
@@ -198,19 +239,8 @@ calendario.addEventListener("change", () => {
   });
 });
 
-function editar(i) {
-  const tarea = tareas[i];
-
-  document.getElementById("titulo").value = tarea.titulo;
-  document.getElementById("descripcion").value = tarea.descripcion;
-  document.getElementById("estado").value = tarea.estado;
-  fechaInicioInput.value = tarea.fechaInicio;
-  fechaFinInput.value = tarea.fechaFin;
-
-  tareas.splice(i, 1);
-  localStorage.setItem("tareas", JSON.stringify(tareas));
-
-  render();
-}
+// ========================================
+// CARGAR TAREAS AL ABRIR LA PÁGINA
+// ========================================
 
 render();
