@@ -418,3 +418,29 @@ img {
     min-width: 0;
   }
 }
+
+/* ===== BOTONES DE FILTRO ===== */
+.btn-filtro {
+  border: 1px solid #a855f7;
+  color: #a855f7;
+  background-color: #ffffff;
+  font-weight: 600;
+}
+
+.btn-filtro:hover {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+}
+
+/* Estilo para el botón que está seleccionado */
+.btn-filtro.active {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+/* ===== TARJETA VENCIDA ===== */
+.task-card-vencida {
+  border-left: 4px solid #ef4444 !important;
+  background-color: #fef2f2; /* Fondo rojizo muy suave */
+}

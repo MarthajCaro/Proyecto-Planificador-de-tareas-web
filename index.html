@@ -75,6 +75,14 @@
                 <label>Fecha de finalización</label>
                 <input type="date" id="fechaFin" class="form-control mb-2" />
 
+                <label>Categoría</label>
+                <select id="categoria" class="form-control mb-2">
+                  <option value="Desarrollo">💻 Desarrollo</option>
+                  <option value="Entrenamiento">🏃‍♀️ Entrenamiento</option>
+                  <option value="Costura">🧵 Costura</option>
+                  <option value="Personal">🏡 Personal</option>
+                </select>
+
                 <label>Estado</label>
                 <select id="estado" class="form-control mb-2">
                   <option value="Pendiente">Pendiente</option>
@@ -90,6 +98,34 @@
           </div>
 
           <div class="col-12 col-md-8">
+            <div class="mb-4">
+              <small class="fw-bold text-muted" style="font-size: 0.75rem"
+                >PROGRESO GENERAL</small
+              >
+              <div
+                class="progress mt-1"
+                style="height: 12px; border-radius: 10px"
+              >
+                <div
+                  id="barraProgreso"
+                  class="progress-bar bg-success"
+                  style="width: 0%; transition: width 0.5s ease-in-out"
+                ></div>
+              </div>
+            </div>
+
+            <div class="btn-group w-100 mb-3" id="filtros">
+              <button class="btn btn-filtro active" data-filtro="Todas">
+                Todas
+              </button>
+              <button class="btn btn-filtro" data-filtro="Pendientes">
+                Pendientes
+              </button>
+              <button class="btn btn-filtro" data-filtro="Completadas">
+                Completadas
+              </button>
+            </div>
+
             <h5>LISTA DE TAREAS</h5>
             <div id="lista"></div>
           </div>
