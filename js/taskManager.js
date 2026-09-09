@@ -4,7 +4,17 @@ class TaskManager {
     this.currentId = currentId;
   }
 
-  addTask(name, description, fechaInicio, fechaFin, status) {
+  // ========================================
+  // AGREGAR TAREA
+  // ========================================
+  addTask(
+    name,
+    description,
+    fechaInicio,
+    fechaFin,
+    status,
+    categoria = "Desarrollo",
+  ) {
     this.currentId++;
 
     const newTask = {
@@ -14,47 +24,67 @@ class TaskManager {
       fechaInicio: fechaInicio,
       fechaFin: fechaFin,
       status: status,
+      categoria: categoria,
     };
 
     this.tasks.push(newTask);
   }
 
+  // ========================================
+  // ELIMINAR TAREA
+  // ========================================
   deleteTask(taskId) {
     const newTasks = [];
+
     for (let task of this.tasks) {
       if (task.id !== taskId) {
         newTasks.push(task);
       }
     }
+
     this.tasks = newTasks;
   }
 
+  // ========================================
+  // BUSCAR TAREA POR ID
+  // ========================================
   getTaskById(taskId) {
     let foundTask;
+
     for (let task of this.tasks) {
       if (task.id === taskId) {
         foundTask = task;
       }
     }
+
     return foundTask;
   }
 
-  // GUARDA LAS TAREAS EN LOCALSTORAGE
+  // ========================================
+  // GUARDAR EN LOCALSTORAGE
+  // ========================================
   save() {
-    localStorage.setItem("tareas", JSON.stringify(this.tasks));
-    localStorage.setItem("currentId", String(this.currentId));
+    const tasksJson = JSON.stringify(this.tasks);
+    localStorage.setItem("tasks", tasksJson);
+
+    const currentId = String(this.currentId);
+    localStorage.setItem("currentId", currentId);
   }
 
-  // CARGA LAS TAREAS DE LOCALSTORAGE AL INICIAR
+  // ========================================
+  // CARGAR DESDE LOCALSTORAGE
+  // ========================================
   load() {
-    if (localStorage.getItem("tareas")) {
-      const tareasGuardadas = localStorage.getItem("tareas");
-      this.tasks = JSON.parse(tareasGuardadas);
+    const tasksJson = localStorage.getItem("tasks");
+
+    if (tasksJson) {
+      this.tasks = JSON.parse(tasksJson);
     }
 
-    if (localStorage.getItem("currentId")) {
-      const idGuardado = localStorage.getItem("currentId");
-      this.currentId = Number(idGuardado);
+    const currentId = localStorage.getItem("currentId");
+
+    if (currentId) {
+      this.currentId = Number(currentId);
     }
   }
 }

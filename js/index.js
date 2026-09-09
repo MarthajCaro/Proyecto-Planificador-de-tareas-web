@@ -1,5 +1,5 @@
 const taskManager = new TaskManager();
-taskManager.load(); // Carga los datos apenas abre la página
+taskManager.load(); // Carga las tareas guardadas
 
 const newTaskForm = document.getElementById("newTaskForm");
 const lista = document.getElementById("lista");
@@ -71,7 +71,7 @@ newTaskForm.addEventListener("submit", function (event) {
       taskToUpdate.status = status;
       taskToUpdate.categoria = categoria;
     }
-    error.textContent = "Tarea actualizada correctamente";
+    error.textContent = "Tarea agragada correctamente";
 
     editingId = null;
     const btnSubmit = newTaskForm.querySelector("button");
